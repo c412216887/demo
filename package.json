@@ -1,0 +1,26 @@
+{
+  "name": "demo",
+  "version": "0.0.1",
+  "description": "个人项目归总",
+  "main": "index.js",
+  "scripts": {
+    "dev": "pnpm -r run dev --filter @demo/main",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "engines": {
+    "node": ">=16.5.0"
+  },
+  "dependencies": {
+    "@ant-design/icons-vue": "^6.1.0",
+    "@demo/utils": "workspace:^",
+    "ant-design-vue": "^3.2.20",
+    "axios": "^1.4.0",
+    "vue": "^3.2.47"
+  },
+  "devDependencies": {
+    "less": "^4.1.3"
+  }
+}
