@@ -4,7 +4,7 @@
   "description": "入口文件",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --mode location",
     "build": "vue-tsc && vite build",
     "preview": "vite preview"
   },

@@ -26,7 +26,7 @@ import menuItem from "./components/menuItem.vue"
 import axios from 'axios'
 import { getAxiosData } from '@demo/utils'
 let catalogKeys = ref([""])
-const data = await axios.get('http://127.0.0.1:4523/m1/2321362-0-default/api/v1/1')
+const data = await axios.get(`${import.meta.env.VITE_HTTP}/m1/2321362-0-default/api/v1/1`)
 const selectedBook = ref<NavContent>(getAxiosData(data))
 if (selectedBook !== null) {
   watchEffect(() => {
