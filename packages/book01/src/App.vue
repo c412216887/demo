@@ -12,16 +12,15 @@
 
 <script lang="ts" setup>
 
-const props = defineProps<{ catalogKeys: string }>()
-const catalogKeys = props.catalogKeys
-debugger
+const props = defineProps<{ menuKeys: number }>()
+const menuKeys = props.menuKeys
+
 
 const currentComponent = computed(() => {
-  if (catalogKeys === "") {
+  if (menuKeys === undefined) {
     return null
   } else {
-    console.log(catalogKeys)
-    return defineAsyncComponent(() => import(`./components/${catalogKeys}.vue`))
+    return defineAsyncComponent(() => import(`./components/${menuKeys}.vue`))
   }
 })
 </script>

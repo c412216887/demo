@@ -4,7 +4,7 @@
   "description": "个人项目归总",
   "main": "index.js",
   "scripts": {
-    "dev": "pnpm -r run dev --filter @demo/main",
+    "dev": "pnpm -r run --filter @demo/main dev",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

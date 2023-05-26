@@ -20,6 +20,7 @@
     "@demo/book01": "workspace:^",
     "@demo/interview": "workspace:^",
     "ant-design-vue": "^3.2.20",
+    "pinia": "^2.0.36",
     "vue-router": "^4.1.6"
   }
 }

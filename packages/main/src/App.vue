@@ -1,48 +1,59 @@
 <template>
   <a-layout class="wrapper">
     <a-layout-header class="header">
-      <div class="logo" />
       <a-menu
-        v-model:selectedKeys="menuKeys"
+        v-model:selectedKeys="navKeys"
         theme="dark"
         mode="horizontal"
         :style="{ lineHeight: '64px' }"
-        @click="clickMenu"
       >
-        <a-menu-item :key="menu.id" v-for="menu in menuList">
-          <router-link :to="menu.path">{{ menu.name }}</router-link>
+        <a-menu-item :key="nav.id" v-for="nav in navigations">
+          <router-link :to="nav.path">{{ nav.name }}</router-link>
         </a-menu-item>
       </a-menu>
     </a-layout-header>
     <a-layout>
-      <a-layout-sider width="200" style="background: #fff">
-        <MenuSide :menuId="menuId" @getCatalogKeys="getCatalogKeys"></MenuSide>
+      <a-layout-sider width="200" style="background: #fff" v-if="navKeys[0] !== -1">
+        <MenuSide :navId="navKeys[0]" @getSectionId="getSectionId"></MenuSide>
       </a-layout-sider>
       <a-layout>
         <Suspense>
-          <router-view :catalogKeys="catalogKeys"></router-view>
+          <router-view :menuKeys="sectionId"></router-view>
         </Suspense>
       </a-layout>
     </a-layout>
   </a-layout>
 </template>
 <script setup lang="ts">
-import type { Menu } from "../type"
-
+import type { Navigation } from "@demo/types"
 import MenuSide from "./components/MenuSide.vue"
+import {useStore} from "./store/index"
+import {useRoute, useRouter } from "vue-router"
 
-const menuList = ref<Menu[]>([
-  { id:1, name: "Javascript高级程序设计", path: "book01",  module: "book01" },
-  { id:2, name: "面试", path: "interview", module: "interview" }
-])
-let menuKeys = ref([menuList.value[0].id])
-let menuId = ref(menuList.value[0].id)
-const clickMenu = (item: {key: number}) => {
-  menuId.value = item.key
-}
-let catalogKeys = ref()
-const getCatalogKeys = (val: any) => {
-  catalogKeys.value = val
+const store = useStore()
+const navigations = computed<Navigation[]>(() => {
+  return [{id: -1, name: "DEMO", path: "/", component: ""}, ...store.$state.navigations]
+})
+
+let navKeys = ref<number[]>([-1])
+const route = useRoute()
+const router = useRouter()
+watchEffect(() => {
+  const path = route.path
+  console.log({route})
+  if (path !== '' && path !== '/') {
+    const currentNav = store.$state.navigations.find(nav => nav.path === path)
+    if (!currentNav) {
+      router.replace("/404")
+    } else {
+      navKeys.value = [currentNav.id]
+    }
+  }
+})
+
+let sectionId = ref(1)
+const getSectionId = (val: number[]) => {
+  sectionId.value = val[0]
 }
 </script>
 <style lang="less" scoped>

@@ -14,3 +14,10 @@ type Section = {
   id: string;
   name: string;
 };
+
+export type Navigation = {
+  id: number;
+  name: string;
+  path: string;
+  component: string;
+};
